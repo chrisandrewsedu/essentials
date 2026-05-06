@@ -470,7 +470,7 @@ export default function ElectionsView({
     return (
       <div className="flex flex-col items-center justify-center min-h-[240px] text-center px-4">
         <p className="text-[16px] font-semibold text-[#00657C]">
-          No upcoming elections found
+          No elections found for this area
         </p>
         <p className="text-[14px] text-[#4A5568] mt-2">
           We're expanding coverage — check back as election season approaches.

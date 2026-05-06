@@ -878,16 +878,14 @@ export default function Results() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const upcoming = electionsData
-      .filter((e) => {
-        if (!e.election_date) return false;
-        const d = new Date(e.election_date + 'T12:00:00');
-        return d >= today;
-      })
+    const sorted = [...electionsData]
+      .filter((e) => e.election_date)
       .sort((a, b) => new Date(a.election_date) - new Date(b.election_date));
+    const upcoming = sorted.filter((e) => new Date(e.election_date + 'T12:00:00') >= today);
+    // Show the nearest upcoming election; fall back to most recent past election
+    const next = upcoming.length > 0 ? upcoming[0] : sorted[sorted.length - 1];
 
-    if (upcoming.length === 0) return null;
-    const next = upcoming[0];
+    if (!next) return null;
 
     const stateName = userState ? (STATE_NAMES[userState] || '') : '';
     const typeRaw = next.election_type || '';
@@ -907,16 +905,24 @@ export default function Results() {
     if (!electionsData || electionsData.length === 0) return null;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const upcoming = electionsData
-      .filter((e) => e.election_date && new Date(e.election_date + 'T12:00:00') >= today)
+
+    // Find the nearest election (upcoming first, then most recent past within 7 days)
+    const sorted = [...electionsData]
+      .filter((e) => e.election_date)
       .sort((a, b) => new Date(a.election_date) - new Date(b.election_date));
-    if (upcoming.length === 0) return null;
-    const target = new Date(upcoming[0].election_date + 'T12:00:00');
+
+    const upcoming = sorted.filter((e) => new Date(e.election_date + 'T12:00:00') >= today);
+    const nearest = upcoming.length > 0 ? upcoming[0] : sorted[sorted.length - 1];
+    if (!nearest) return null;
+
+    const target = new Date(nearest.election_date + 'T12:00:00');
     target.setHours(0, 0, 0, 0);
     const days = Math.round((target - today) / (1000 * 60 * 60 * 24));
     if (days === 0) return 'Today';
     if (days === 1) return 'Tomorrow';
-    return `${days} days away`;
+    if (days > 1) return `${days} days away`;
+    if (days === -1) return 'Yesterday';
+    return `${Math.abs(days)} days ago`;
   }, [electionsData]);
 
   // Filter federal politicians: only show senators/reps from user's state
