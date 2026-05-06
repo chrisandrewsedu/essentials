@@ -107,30 +107,30 @@ export default function Landing() {
     <Layout>
 
       {/* ── Hero ── */}
-      <section className="bg-ev-navy text-white">
-        <div className="max-w-5xl mx-auto px-6 py-16 sm:py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <section className="bg-ev-navy text-white min-h-[calc(100vh-73px)] flex items-center">
+        <div className="w-full px-12 sm:px-16 lg:px-24 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-16 lg:gap-24 items-center">
 
             {/* Left: headline + copy + CTA */}
             <div>
               <p className="text-ev-teal-light text-xs font-bold uppercase tracking-widest mb-5">
                 Empowered Essentials
               </p>
-              <h1 className="text-4xl sm:text-5xl font-bold leading-tight text-white">
+              <h1 className="text-5xl sm:text-6xl font-bold leading-tight text-white">
                 Meet everyone<br />who represents you,
               </h1>
-              <p className="text-4xl sm:text-5xl font-bold text-ev-teal-light leading-tight mt-1 mb-6">
+              <p className="text-5xl sm:text-6xl font-bold text-ev-teal-light leading-tight mt-1 mb-8">
                 at every level.
               </p>
-              <p className="text-gray-400 text-base leading-relaxed mb-3">
+              <p className="text-gray-400 text-lg leading-relaxed mb-3">
                 Most voters can't name half the people on their ballot — let alone where they stand on the issues.
               </p>
-              <p className="text-gray-300 text-base leading-relaxed mb-8">
+              <p className="text-gray-300 text-lg leading-relaxed mb-10">
                 Our Alpha Counties show exactly where we're headed: your full government, from city hall to Congress, all in one place.
               </p>
               <button
                 onClick={scrollToSearch}
-                className="inline-flex items-center gap-2 bg-ev-yellow text-black font-bold px-7 py-3.5 rounded-xl hover:bg-ev-yellow-dark transition-colors text-base"
+                className="inline-flex items-center gap-2 bg-ev-yellow text-black font-bold px-8 py-4 rounded-xl hover:bg-ev-yellow-dark transition-colors text-lg"
               >
                 Find My Representatives →
               </button>
