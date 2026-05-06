@@ -3,8 +3,10 @@ import { useCompass } from "../contexts/CompassContext";
 import { redirectToLogin } from "../lib/auth";
 import { useSearchParams } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
+import { useTheme } from "../hooks/useTheme";
 export function Layout({ children }) {
   const { isLoggedIn, userName, logout } = useCompass();
+  const { isDark } = useTheme();
   const [searchParams] = useSearchParams();
   const currentAddress = searchParams.get('q') || '';
 
@@ -51,6 +53,10 @@ export function Layout({ children }) {
         secondaryAction={<div className="flex items-center gap-2"><ThemeToggle /><FeedbackButton /></div>}
         onNavigate={(href) => { window.location.href = href; }}
         profileMenu={profileMenu}
+        style={isDark ? {
+          backgroundColor: '#020618',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+        } : undefined}
       />
       {children}
     </>
