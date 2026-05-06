@@ -17,6 +17,7 @@ import { fetchElectionsByAddress, fetchElectionsByArea, fetchElectionsByGovernme
 import { saveUserAddress, loadUserAddressFromContext } from '../lib/compass';
 import { apiFetch } from '../lib/auth';
 import { useCompass } from '../contexts/CompassContext';
+import { useTheme } from '../hooks/useTheme';
 import useGooglePlacesAutocomplete from '../hooks/useGooglePlacesAutocomplete';
 import LocationBrowser from '../components/LocationBrowser';
 import ElectionsView from '../components/ElectionsView';
@@ -302,6 +303,7 @@ function simplifyForBody(title, pol) {
 
 
 export default function Results() {
+  const { isDark } = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const queryFromUrl = searchParams.get('q') || '';
@@ -1484,7 +1486,7 @@ export default function Results() {
                     : `${tier} representative data is not yet available for this area.`;
 
                   return (
-                    <div key={`empty-${tier}`} data-tier={tier} className="-mx-6 md:-mx-12 px-6 md:px-12 py-3" style={{ backgroundColor: tierStyle?.bg ?? '#FFFFFF' }}>
+                    <div key={`empty-${tier}`} data-tier={tier} className="-mx-6 md:-mx-12 px-6 md:px-12 py-3" style={!isDark ? { backgroundColor: tierStyle?.bg ?? '#FFFFFF' } : undefined}>
                       {selectedFilter === 'All' && (
                         <div className="mb-3">
                           <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: tierStyle?.text }}>{tier}</span>
@@ -1508,7 +1510,7 @@ export default function Results() {
                   if (!tierStyle) return null;
 
                   return (
-                    <div key={tier} data-tier={tier} className="-mx-6 md:-mx-12 px-6 md:px-12 py-3" style={{ backgroundColor: tierStyle.bg }}>
+                    <div key={tier} data-tier={tier} className="-mx-6 md:-mx-12 px-6 md:px-12 py-3" style={!isDark ? { backgroundColor: tierStyle.bg } : undefined}>
                       {selectedFilter === 'All' && (
                         <div className="mb-3">
                           <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: tierStyle.text }}>{tier}</span>
