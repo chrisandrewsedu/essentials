@@ -109,3 +109,19 @@ body {
   -webkit-box-orient: vertical !important;
   line-height: 1.25 !important;
 }
+
+/* Dark mode: override ev-ui inline background on politician cards */
+.dark .ev-politician-card {
+  background-color: #1a2235 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .ev-politician-card:hover {
+  background-color: #1e2a3a !important;
+}
+
+/* Also darken text that ev-ui sets with inline color */
+.dark .ev-politician-card p,
+.dark .ev-politician-card span {
+  color: inherit;
+}
