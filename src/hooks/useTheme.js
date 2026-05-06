@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'ev:color-scheme';
+const COOKIE_NAME = 'ev_theme';
+
+function setCrossAppCookie(value) {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 1);
+  document.cookie = `${COOKIE_NAME}=${value}; domain=.empowered.vote; path=/; expires=${expires.toUTCString()}; SameSite=Lax`;
+}
 
 export function useTheme() {
   const [isDark, setIsDark] = useState(
@@ -18,7 +25,9 @@ export function useTheme() {
   function toggle() {
     const next = !isDark;
     document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem(STORAGE_KEY, next ? 'dark' : 'light');
+    const value = next ? 'dark' : 'light';
+    localStorage.setItem(STORAGE_KEY, value);
+    setCrossAppCookie(value);
     setIsDark(next);
   }
 

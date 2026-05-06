@@ -34,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Empowered Essentials</title>
     <script>
-      (function(){var s=localStorage.getItem('ev:color-scheme');if(s==='dark'||(!s&&!window.matchMedia('(prefers-color-scheme: light)').matches))document.documentElement.classList.add('dark')})();
+      (function(){var s=localStorage.getItem('ev:color-scheme');if(!s){var m=document.cookie.match(/(?:^|;\s*)ev_theme=([^;]+)/);if(m)s=m[1];}if(s==='dark'||(!s&&!window.matchMedia('(prefers-color-scheme: light)').matches))document.documentElement.classList.add('dark')})();
     </script>
   </head>
   <body>
